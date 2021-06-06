@@ -1,10 +1,18 @@
    <!-- footer
    ================================================== -->
-   <footer>
+   <footer id="footer">
 
       <div class="row">
 
          <div class="twelve columns">
+
+         <?php
+   wp_nav_menu( array(
+      'theme_location' => 'footer',
+      'container' => null,
+      'menu_class' => 'footer_menu',
+
+   )); ?>
 
             <ul class="footer-nav">
 					<li><a href="#">Home.</a></li>
@@ -37,6 +45,7 @@
 
    </footer> <!-- Footer End-->
 
+   
    <!-- Java Script
    ================================================== -->
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
