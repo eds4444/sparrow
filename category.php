@@ -25,6 +25,21 @@
 
          <div id="primary" class="eight columns">
 
+
+           <?php if (have_posts()) {
+              while (have_posts()) {
+                 the_post(); ?>
+
+                 <article>
+                  <h1><?php the_title(); ?></h1>
+                  <?php the_content(); ?>
+                 </article>
+            <?php
+              }
+           }
+           ?>
+
+
             <article class="post">
 
                <div class="entry-header cf">
