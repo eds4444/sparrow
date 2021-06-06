@@ -42,7 +42,7 @@
          <div class="twelve columns">
 
             <div class="logo">
-               <a href="<?php echo home_url() ?>">
+               <a href="<?php echo home_url(); ?>">
                  <div><?php bloginfo ( 'name' ); ?></div>
                  <img alt="" src="images/logo.png">
                </a>
