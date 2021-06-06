@@ -85,19 +85,22 @@ img { border-radius: 3px; }
 #sidebar .widget { margin-bottom: 24px; }
 
 /* Link list */
-#sidebar .link-list {
+.widget_categories {
    margin: 12px 0 18px 0;
    padding: 0;
 }
-#sidebar .link-list li {
+.widget_categories li {
    line-height: 24px;
 }
-#sidebar .link-list li a {
+.widget_categories li a {
    border: none;
    color: #838C95;
 }
-#sidebar .link-list li a:hover {
+.widget_categories li a:hover {
    color: #313131;
+}
+#sidebar li.current-cat a{
+   color: red;
 }
 
 /* tag cloud */
