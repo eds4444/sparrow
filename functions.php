@@ -5,6 +5,16 @@ add_action( 'wp_footer', 'theme_scripts' );
 add_action( 'after_setup_theme', 'theme_register_nav_menu' );//создание меню
 add_action( 'widgets_init', 'register_my_widgets' );//сайдбар
 
+add_filter('the_content', 'test_content');
+
+function test_content($content){
+
+    $content.= 'Спасибо';
+
+return $content;
+    
+}
+
 function register_my_widgets(){//сайдбар
       register_sidebar( array(
 		'name'          => 'Left Sidebar',
@@ -31,7 +41,19 @@ function theme_register_nav_menu() {
     register_nav_menu( 'footer', 'Меню в подвале' );
     add_theme_support( 'title-tag' );
     add_theme_support( 'post-thumbnails', array( 'post' ) );
-    add_image_size( 'post_thumb', 1300, 500, true);      
+    add_theme_support( 'post-formats', array( 'video', 'aside', 'gallery', 'chat') );
+    add_image_size( 'post_thumb', 1300, 500, true);
+    add_filter('navigation_markup_template', 'my_navigation_template', 10, 2);
+    function my_navigation_template( $template, $class){
+        return '
+        <nav class="navigation %1$s" role="navigetion">
+        <div class="nav-links">%3$s</div>
+        </nav>
+        ';
+    }     
+    the_posts_pagination( array(
+        'end_size' => 2,
+    ) );
 }
 
 
@@ -53,3 +75,18 @@ function theme_scripts(){
     wp_enqueue_script('init', get_template_directory_uri(). '/assets/js/init.js', ['jquery'],null, true );
     wp_enqueue_script('modernizr', get_template_directory_uri(). '/assets/js/vodernizr.js', null, false );
 }
+
+add_shortcode( 'iframe', 'Gen_iframe' );
+
+function Gen_iframe( $atts ) {
+	$atts = shortcode_atts( array(
+		'href'   => 'http://example.com',
+		'height' => '550px',
+		'width'  => '600px',     
+	), $atts );
+
+	return '<iframe src="'. $atts['href'] .'" width="'. $atts['width'] .'" height="'. $atts['height'] .'"> <p>Your Browser does not support Iframes.</p></iframe>';
+}
+
+// использование: 
+// [iframe href="http://www.exmaple.com" height="480" width="640"]
