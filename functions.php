@@ -5,6 +5,40 @@ add_action( 'wp_footer', 'theme_scripts' );
 add_action( 'after_setup_theme', 'theme_register_nav_menu' );//создание меню
 add_action( 'widgets_init', 'register_my_widgets' );//сайдбар
 
+add_action('init', 'my_custom_init');
+function my_custom_init(){
+	register_post_type('portfolio', array(
+		'labels'             => array(
+			'name'               => 'Портфолио', // Основное название типа записи
+			'singular_name'      => 'портфолио', // отдельное название записи типа Book
+			'add_new'            => 'Добавить работу',
+			'add_new_item'       => 'Добавление работы',
+			'edit_item'          => 'Редактирование работы',
+			'new_item'           => 'Новая работа',
+			'view_item'          => 'Смотреть работу',
+			'search_items'       => 'Искать работу в партфолио',
+			'not_found'          => 'Не найдено',
+			'not_found_in_trash' => 'В корзине не найдено',
+			'parent_item_colon'  => '',
+			'menu_name'          => 'Портфолио'
+
+		  ),
+        'description'        => 'Это наши работы ы портфолио',
+		'public'             => true,
+		'publicly_queryable' => true,
+		'show_ui'            => true,
+		'show_in_menu'       => true,
+		'query_var'          => true,
+		'rewrite'            => true,
+		'capability_type'    => 'post',
+		'has_archive'        => true,
+		'hierarchical'       => false,
+		'menu_position'      => 4,
+        'menu_icon'          => 'dashicons-format-gallery',
+		'supports'           => array('title','editor','author','thumbnail','excerpt','comments')
+	) );
+}
+
 add_filter('the_content', 'test_content');
 
 function test_content($content){
@@ -40,7 +74,7 @@ function theme_register_nav_menu() {
 	register_nav_menu( 'top', 'Меню в шапке' ); //регистрируем область меню
     register_nav_menu( 'footer', 'Меню в подвале' );
     add_theme_support( 'title-tag' );
-    add_theme_support( 'post-thumbnails', array( 'post' ) );
+    add_theme_support( 'post-thumbnails', array( 'post', 'portfolio') );
     add_theme_support( 'post-formats', array( 'video', 'aside', 'gallery', 'chat') );
     add_image_size( 'post_thumb', 1300, 500, true);
     add_filter('navigation_markup_template', 'my_navigation_template', 10, 2);
