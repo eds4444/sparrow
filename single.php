@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-  <?php the_post(); ?>
+  <?php if ( have_posts()) : while ( have_posts()) : the_post(); ?>
 
    <!-- Content
    ================================================== -->
@@ -61,4 +61,8 @@
 
    </section> <!-- Tweets Section End-->
 
-<?php get_footer(); ?>
+   <?php endwhile; ?>
+   <?php endif; ?>
+
+  
+   <?php get_footer(); ?>
