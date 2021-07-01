@@ -46,7 +46,7 @@ Template Post Type: portfolio
                   </div>
 
                   <ul class="portfolio-meta-list">
-						   <li><span>Date: </span>January 2014</li>
+						   <li><span>Date: </span><?php the_field('project-date', ); ?></li>
 						   <li><span>Client </span>Styleshout</li>
 						   <li><span>Skills: </span>Photoshop, Photography, Branding</li>
 				      </ul>

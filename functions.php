@@ -10,20 +10,19 @@ function my_custom_init(){
 	register_post_type('portfolio', array(
 		'labels'             => array(
 			'name'               => 'Портфолио', // Основное название типа записи
-			'singular_name'      => 'портфолио', // отдельное название записи типа Book
+			'singular_name'      => 'Портфолио', // отдельное название записи типа Book
 			'add_new'            => 'Добавить работу',
-			'add_new_item'       => 'Добавление работы',
+			'add_new_item'       => 'Добавдение работы',
 			'edit_item'          => 'Редактирование работы',
 			'new_item'           => 'Новая работа',
-			'view_item'          => 'Смотреть работу',
-			'search_items'       => 'Искать работу в партфолио',
+			'view_item'          => 'Посмотреть работу',
+			'search_items'       => 'Искать работу в портфолио',
 			'not_found'          => 'Не найдено',
 			'not_found_in_trash' => 'В корзине не найдено',
 			'parent_item_colon'  => '',
 			'menu_name'          => 'Портфолио'
+		 ),
 
-		  ),
-        'description'        => 'Это наши работы ы портфолио',
 		'public'             => true,
 		'publicly_queryable' => true,
 		'show_ui'            => true,
@@ -33,8 +32,7 @@ function my_custom_init(){
 		'capability_type'    => 'post',
 		'has_archive'        => true,
 		'hierarchical'       => false,
-		'menu_position'      => 4,
-        'menu_icon'          => 'dashicons-format-gallery',
+		'menu_position'      => null,
 		'supports'           => array('title','editor','author','thumbnail','excerpt','comments')
 	) );
 }
