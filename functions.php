@@ -5,38 +5,47 @@ add_action( 'wp_footer', 'theme_scripts' );
 add_action( 'after_setup_theme', 'theme_register_nav_menu' );//создание меню
 add_action( 'widgets_init', 'register_my_widgets' );//сайдбар
 
-add_action('init', 'my_custom_init');
-function my_custom_init(){
-	register_post_type('portfolio', array(
-		'labels'             => array(
-			'name'               => 'Портфолио', // Основное название типа записи
-			'singular_name'      => 'Портфолио', // отдельное название записи типа Book
-			'add_new'            => 'Добавить работу',
-			'add_new_item'       => 'Добавдение работы',
-			'edit_item'          => 'Редактирование работы',
-			'new_item'           => 'Новая работа',
-			'view_item'          => 'Посмотреть работу',
-			'search_items'       => 'Искать работу в портфолио',
-			'not_found'          => 'Не найдено',
-			'not_found_in_trash' => 'В корзине не найдено',
-			'parent_item_colon'  => '',
-			'menu_name'          => 'Портфолио'
-		 ),
-
-		'public'             => true,
-		'publicly_queryable' => true,
-		'show_ui'            => true,
-		'show_in_menu'       => true,
-		'query_var'          => true,
-		'rewrite'            => true,
-		'capability_type'    => 'post',
-		'has_archive'        => true,
-		'hierarchical'       => false,
-		'menu_position'      => null,
-		'supports'           => array('title','editor','author','thumbnail','excerpt','comments')
-	) );
+add_action( 'init', 'register_post_types' );
+function register_post_types(){
+	register_post_type( 'post_type_name', [
+		'label'  => null,
+		'labels' => [
+			'name'               => 'Портфолио', // основное название для типа записи
+			'singular_name'      => 'Портфолио', // название для одной записи этого типа
+			'add_new'            => 'Добавить работу', // для добавления новой записи
+			'add_new_item'       => 'Добавление работы', // заголовка у вновь создаваемой записи в админ-панели.
+			'edit_item'          => 'Редактирование работы', // для редактирования типа записи
+			'new_item'           => 'Новоя работа', // текст новой записи
+			'view_item'          => 'Смотреть работу', // для просмотра записи этого типа.
+			'search_items'       => 'Искать работу в портфолио', // для поиска по этим типам записи
+			'not_found'          => 'Не найдено', // если в результате поиска ничего не было найдено
+			'not_found_in_trash' => 'Не найдено в корзине', // если не было найдено в корзине
+			'parent_item_colon'  => '', // для родителей (у древовидных типов)
+			'menu_name'          => 'Портфолио', // название меню
+		],
+		'description'         => '',
+		'public'              => true,
+		'publicly_queryable'  => true, // зависит от public
+		'exclude_from_search' => true, // зависит от public
+		'show_ui'             => true, // зависит от public
+		'show_in_nav_menus'   => true, // зависит от public
+		'show_in_menu'        => true, // показывать ли в меню адмнки
+		'show_in_admin_bar'   => true, // зависит от show_in_menu
+		'show_in_rest'        => true, // добавить в REST API. C WP 4.7
+		'rest_base'           => true, // $post_type. C WP 4.7
+		'menu_position'       => true,
+		'menu_icon'           => 'dashicons-format-gallery',
+		//'capability_type'   => 'post',
+		//'capabilities'      => 'post', // массив дополнительных прав для этого типа записи
+		//'map_meta_cap'      => null, // Ставим true чтобы включить дефолтный обработчик специальных прав
+		'hierarchical'        => false,
+		'supports'            => [ 'title', 'editor','author','thumbnail','excerpt' ], //'author','thumbnail','trackbacks','custom-fields','comments','revisions','page-attributes','post-formats'
+		'taxonomies'          => [],
+		'has_archive'         => false,
+		'rewrite'             => true,
+		'query_var'           => true,
+	] );
 }
-
 add_filter('the_content', 'test_content');
 
 function test_content($content){
