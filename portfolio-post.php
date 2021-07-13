@@ -47,7 +47,7 @@ Template Post Type: portfolio
 
                   <ul class="portfolio-meta-list">
 						   <li><span>Date: </span><?php the_field('project-date', ); ?></li>
-						   <li><span>Client </span>Styleshout</li>
+						   <li><span>Client </span><?php the_field('client', ); ?></li>
 						   <li><span>Skills: </span>Photoshop, Photography, Branding</li>
 				      </ul>
 
@@ -59,7 +59,7 @@ Template Post Type: portfolio
 
                <div class="entry-media">
 
-                  <img src="images/portfolio/entries/geometric-backgrounds-01.jpg" alt="" />
+                 <img src="<?php the_field('project-photo') ?>" alt="">
 
                   <img src="images/portfolio/entries/geometric-backgrounds-02.jpg" alt="" />
 

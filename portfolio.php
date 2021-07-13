@@ -124,7 +124,3 @@ wp_reset_postdata(); // сброс
    </section> <!-- Tweet Section End-->
    
    <?php get_footer();  ?>
-
-  </body>
-
-</html>

@@ -7,7 +7,7 @@ add_action( 'widgets_init', 'register_my_widgets' );//сайдбар
 
 add_action( 'init', 'register_post_types' );
 function register_post_types(){
-	register_post_type( 'post_type_name', [
+	register_post_type( 'portfolio', [
 		'label'  => null,
 		'labels' => [
 			'name'               => 'Портфолио', // основное название для типа записи
@@ -32,8 +32,8 @@ function register_post_types(){
 		'show_in_menu'        => true, // показывать ли в меню адмнки
 		'show_in_admin_bar'   => true, // зависит от show_in_menu
 		'show_in_rest'        => true, // добавить в REST API. C WP 4.7
-		'rest_base'           => true, // $post_type. C WP 4.7
-		'menu_position'       => true,
+		'rest_base'           => null, // $post_type. C WP 4.7
+		'menu_position'       => 4,
 		'menu_icon'           => 'dashicons-format-gallery',
 		//'capability_type'   => 'post',
 		//'capabilities'      => 'post', // массив дополнительных прав для этого типа записи
@@ -70,7 +70,7 @@ function register_my_widgets(){//сайдбар
 		'name'          => 'Top Sidebar',
 		'id'            => "top_sidebar",
 		'description'   => 'верхний сайдбар',
-        'before_widget' => '<div class="widget %2$s">',
+        'before_widget' => '<div class="widget %2$s ">',
 		'after_widget'  => "</div>\n",
 		'before_title'  => '<h5 class="widgettitle">',
 		'after_title'   => "</h5>\n"			

@@ -85,18 +85,18 @@ img { border-radius: 3px; }
 #sidebar .widget { margin-bottom: 24px; }
 
 /* Link list */
-.widget_categories {
+#sidebar .widget_categories {
    margin: 12px 0 18px 0;
    padding: 0;
 }
-.widget_categories li {
+#sidebar .widget_categories li {
    line-height: 24px;
 }
-.widget_categories li a {
+#sidebar .widget_categories li a {
    border: none;
    color: #838C95;
 }
-.widget_categories li a:hover {
+#sidebar .widget_categories li a:hover {
    color: #313131;
 }
 #sidebar li.current-cat a{
