@@ -23,7 +23,7 @@ function register_post_types(){
 			'parent_item_colon'  => '', // для родителей (у древовидных типов)
 			'menu_name'          => 'Портфолио', // название меню
 		],
-		'description'         => '',
+		'description'         => 'Это наши работы в партфолио',
 		'public'              => true,
 		'publicly_queryable'  => true, // зависит от public
 		'exclude_from_search' => true, // зависит от public
@@ -40,12 +40,48 @@ function register_post_types(){
 		//'map_meta_cap'      => null, // Ставим true чтобы включить дефолтный обработчик специальных прав
 		'hierarchical'        => false,
 		'supports'            => [ 'title', 'editor','author','thumbnail','excerpt' ], //'author','thumbnail','trackbacks','custom-fields','comments','revisions','page-attributes','post-formats'
-		'taxonomies'          => [],
+		'taxonomies'          => ['skills'],
 		'has_archive'         => false,
 		'rewrite'             => true,
-		'query_var'           => true,
+		'query_var'           => false,
 	] );
 }
+
+add_action( 'init', 'create_taxonomy' );
+function create_taxonomy(){
+	register_taxonomy( 'skills', [ 'portfolio', 'post' ], [
+		'label'                 => '', // определяется параметром $labels->name
+		'labels'                => [
+			'name'              => 'Навыки',
+			'singular_name'     => 'Навык',
+			'search_items'      => 'Найти навык',
+			'all_items'         => 'Все навыки',
+			'view_item '        => 'Смотреть навыки',
+			'parent_item'       => 'Родительский навык',
+			'parent_item_colon' => 'Родительский навык:',
+			'edit_item'         => 'Изменить навык',
+			'update_item'       => 'Обновить навык',
+			'add_new_item'      => 'Добавить новый навык',
+			'new_item_name'     => 'Новое имя навыка',
+			'menu_name'         => 'Навыки',
+		],
+		'description'           => 'Навыки которые использовались в работе', // описание таксономии
+		'public'                => true,
+		'publicly_queryable'    => true, // равен аргументу public
+		//'show_in_nav_menus'     => true, // равен аргументу public
+		//'show_ui'               => true, // равен аргументу public
+		//'show_in_menu'          => true, // равен аргументу show_ui
+	    //'show_tagcloud'         => true, // равен аргументу show_ui
+		//'show_in_quick_edit'    => true, // равен аргументу show_ui
+		'hierarchical'          => false,
+		'rewrite'               => true,
+	] );
+}
+add_action( 'init', 'skills_for_portfolio' );
+function skills_for_portfolio(){
+	register_taxonomy_for_object_type( 'skills', 'portfolio');
+}
+
 add_filter('the_content', 'test_content');
 
 function test_content($content){

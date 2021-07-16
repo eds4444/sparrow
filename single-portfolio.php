@@ -1,10 +1,3 @@
-<?php
-/*
-Template Name: Страница с работой портфолио
-Template Post Type: portfolio
-
-*/
-?>
 
 <?php get_header();  ?>  
 
@@ -34,7 +27,7 @@ Template Post Type: portfolio
 
             <div id="secondary"  class="four columns entry-details">
 
-                  <h1>Geometrics.</h1>
+                  <h1><?php the_title(); ?></h1>
 
                   <div class="entry-description">
 
@@ -43,12 +36,14 @@ Template Post Type: portfolio
                      cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a
                      ornare odio.</p>
 
+                  
+            
                   </div>
 
                   <ul class="portfolio-meta-list">
 						   <li><span>Date: </span><?php the_field('project-date', ); ?></li>
 						   <li><span>Client </span><?php the_field('client', ); ?></li>
-						   <li><span>Skills: </span>Photoshop, Photography, Branding</li>
+						   <li><span>Skills: </span><?php the_terms( get_the_ID(),'skills', '', ' / ', '' ); ?></li>
 				      </ul>
 
                   <a class="button" href="http://behance.net">View project</a>
@@ -60,6 +55,7 @@ Template Post Type: portfolio
                <div class="entry-media">
 
                  <img src="<?php the_field('project-photo') ?>" alt="">
+                 <?php ?>
 
                   <img src="images/portfolio/entries/geometric-backgrounds-02.jpg" alt="" />
 
