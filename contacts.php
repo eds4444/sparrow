@@ -46,8 +46,14 @@ Template Post Type: post, page
 
               <div id="contact-form">
 
+                 <?php // echo do_shortcode( '[contact-form-7 id="74" title="Contact form 1"]') ?>
+
+                 <?php //echo do_shortcode('[ninja_form id=2]')   ?>
+
                   <!-- form -->
-                  <form name="contactForm" id="contactForm" method="post" action="">
+                  <form name="contactForm" id="contactForm" method="post" 
+                  action="<?php echo admin_url('admin-ajax.php?action=send_mail')?>">
+
       					<fieldset>
 
                         <div class="half">

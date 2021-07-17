@@ -5,6 +5,55 @@ add_action( 'wp_footer', 'theme_scripts' );
 add_action( 'after_setup_theme', 'theme_register_nav_menu' );//создание меню
 add_action( 'widgets_init', 'register_my_widgets' );//сайдбар
 
+add_action('wp_ajax_send_mail'     , 'send_mail');
+add_action('wp_ajax_nopriv_send_mail', 'send_mail');
+
+function send_mail() {
+	$contactName = $_POST['contactName'];
+	$contactEmail = $_POST['contactEmail'];
+	$contactSubject = $_POST['contactSubject'];
+	$contactMessage = $_POST['contactMessage'];
+
+	// подразумевается что $to, $subject, $message уже определены...
+	$to = get_option('admin_email');
+	
+
+// удалим фильтры, которые могут изменять заголовок $headers
+remove_all_filters( 'wp_mail_from' );
+remove_all_filters( 'wp_mail_from_name' );
+
+$headers = array(
+	'From: Me Myself <me@example.net>',
+	'content-type: text/html',
+	'Cc: John Q Codex <jqc@wordpress.org>',
+	'Cc: iluvwp@wordpress.org', // тут можно использовать только простой email адрес
+);
+
+wp_mail( $to, $contactSubject, $contactMessage, $headers );
+wp_die();
+}
+
+add_shortcode('posts', 'test_posts');
+function test_posts( $atts){
+	$atts = shortcode_atts( array(
+		'cnt' => 5,
+		'post_type' => 'post'), $atts);
+    $args = array(
+		'numberposts' => $atts['cnt'],
+		'post_type' => $atts['post_type']
+	);
+	$str = '';
+
+	$posts = get_posts( $args);
+
+	foreach ($posts as $post) { setup_postdata($post);
+		$title = the_title();
+		$str .= "<div>$title</div>";
+	}
+	wp_reset_postdata();
+	return $str;	
+}
+
 add_action( 'init', 'register_post_types' );
 function register_post_types(){
 	register_post_type( 'portfolio', [
@@ -136,7 +185,7 @@ function theme_register_nav_menu() {
 
 function theme_styles(){
 
-    wp_enqueue_style( 'style', get_stylesheet_uri());
+    wp_enqueue_style( 'styles', get_stylesheet_uri());
     wp_enqueue_style( 'default', get_template_directory_uri() . '/assets/css/default.css' );
     wp_enqueue_style( 'layout', get_template_directory_uri() . '/assets/css/layout.css' );
 }
@@ -149,8 +198,9 @@ function theme_scripts(){
      null, true );
      wp_enqueue_script('doubletaptogo', get_template_directory_uri(). '/assets/js/doubletaptogo.js', ['jquery'],
      null, true );
-    wp_enqueue_script('init', get_template_directory_uri(). '/assets/js/init.js', ['jquery'],null, true );
-    wp_enqueue_script('modernizr', get_template_directory_uri(). '/assets/js/vodernizr.js', null, false );
+    wp_enqueue_script('init', get_template_directory_uri() . '/assets/js/init.js', ['jquery'],null, true );
+    wp_enqueue_script('modernizr', get_template_directory_uri() . '/assets/js/modernizr.js', null, null, false );
+	wp_enqueue_script('main', get_template_directory_uri() . '/assets/js/main.js', ['jquery'], null, true );
 }
 
 add_shortcode( 'iframe', 'Gen_iframe' );
